@@ -35,7 +35,6 @@ func main() {
 	e.GET("/fetch", FetchArticle)
 	e.GET("/fetch2", FetchArticleWithCache)
 
-
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Format: "method=${method}, uri=${uri}, status=${status}\n",
 	}))
@@ -46,7 +45,7 @@ func main() {
 func FetchArticleWithCache(c echo.Context) error {
 	page, _ := strconv.Atoi(c.QueryParam("page"))
 	limitPerPage, _ := strconv.Atoi(c.QueryParam("page_size"))
-	limit, offset :=  getPaginateLimitOffset(page, limitPerPage)
+	limit, offset := getPaginateLimitOffset(page, limitPerPage)
 	strLimit := strconv.Itoa(limit)
 	strOffset := strconv.Itoa(offset)
 
@@ -56,7 +55,7 @@ func FetchArticleWithCache(c echo.Context) error {
 
 	if err != nil {
 		//query if key not found
-		err := db.ConnectMysql().Limit(limit).Offset(offset).Find(&articles).Preload("Author").Error
+		err := db.ConnectGorm().Limit(limit).Offset(offset).Find(&articles).Preload("Author").Error
 
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error()).SetInternal(err)
@@ -88,15 +87,14 @@ func FetchArticleWithCache(c echo.Context) error {
 	})
 }
 
-
 func FetchArticle(c echo.Context) error {
 
 	page, _ := strconv.Atoi(c.QueryParam("page"))
 	limitPerPage, _ := strconv.Atoi(c.QueryParam("page_size"))
-	limit, offset :=  getPaginateLimitOffset(page, limitPerPage)
+	limit, offset := getPaginateLimitOffset(page, limitPerPage)
 
 	var articles []domain.Post
-	err := db.ConnectMysql().Limit(limit).Offset(offset).Find(&articles).Preload("Author").Error
+	err := db.ConnectGorm().Limit(limit).Offset(offset).Find(&articles).Preload("Author").Error
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error()).SetInternal(err)
@@ -114,10 +112,10 @@ func getPaginateLimitOffset(page, limitPerPage int) (limit, offset int) {
 	}
 
 	switch {
-		case limitPerPage > 100:
-				limitPerPage = 100
-		case limitPerPage <= 0:
-				limitPerPage = 10
+	case limitPerPage > 100:
+		limitPerPage = 100
+	case limitPerPage <= 0:
+		limitPerPage = 10
 	}
 
 	offset = (page - 1) * limitPerPage

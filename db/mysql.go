@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func ConnectMysql() *gorm.DB {
+func ConnectGorm() *gorm.DB {
 
 	connection := viper.GetString("DATABASE_URL")
 
