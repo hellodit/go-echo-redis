@@ -1,8 +1,4 @@
-DB_HOST: "127.0.0.1"
-DB_PORT: 3306
-DB_USER: "root"
-DB_PASSWORD: ""
-DB_NAME: "go-echo-redis"
+DATABASE_URL: "root:@tcp(127.0.0.1:3306)/herokucicd?charset=utf8mb4&parseTime=True&loc=Local"
 
 REDIS_HOST: "127.0.0.1"
 REDIS_PORT: "6379"
