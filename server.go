@@ -39,7 +39,7 @@ func main() {
 		Format: "method=${method}, uri=${uri}, status=${status}\n",
 	}))
 
-	e.Logger.Fatal(e.Start(":" + viper.GetString("APP_PORT")))
+	e.Logger.Fatal(e.Start(":" + viper.GetString("PORT")))
 }
 
 func FetchArticleWithCache(c echo.Context) error {
