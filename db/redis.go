@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/go-redis/redis/v7"
 	"github.com/sirupsen/logrus"
-	"github.com/spf13/viper"
+	"os"
 	"sync"
 )
 
@@ -23,9 +23,9 @@ var once sync.Once
 var client *Client
 
 func RedisClient() {
-	HOST := viper.GetString("REDIS_HOST")
-	PORT := viper.GetString("REDIS_PORT")
-	PASS := viper.GetString("REDIS_PASSWORD")
+	HOST := os.Getenv("REDIS_HOST")
+	PORT := os.Getenv("REDIS_PORT")
+	PASS := os.Getenv("REDIS_PASSWORD")
 
 	once.Do(func() {
 		conn := redis.NewClient(&redis.Options{

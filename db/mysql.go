@@ -1,14 +1,14 @@
 package db
 
 import (
-	"github.com/spf13/viper"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"os"
 )
 
 func ConnectGorm() *gorm.DB {
 
-	connection := viper.GetString("DATABASE_URL")
+	connection := os.Getenv("DATABASE_URL")
 
 	db, err := gorm.Open(postgres.Open(connection), &gorm.Config{})
 

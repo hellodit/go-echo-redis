@@ -8,22 +8,13 @@ import (
 	"go-echo-redis/db"
 	"go-echo-redis/domain"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
 	"github.com/labstack/echo/v4"
 )
 
-func init() {
-	viper.SetConfigName("config")
-	viper.AddConfigPath(".")
-	viper.SetConfigType("yml")
-
-	if err := viper.ReadInConfig(); err != nil {
-		viper.AutomaticEnv()
-		logrus.Info("load config system config variable")
-	}
-}
 func main() {
 	e := echo.New()
 
@@ -38,7 +29,7 @@ func main() {
 		Format: "method=${method}, uri=${uri}, status=${status}\n",
 	}))
 
-	e.Logger.Fatal(e.Start(":" + viper.GetString("PORT")))
+	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
 }
 
 func FetchArticleWithCache(c echo.Context) error {
