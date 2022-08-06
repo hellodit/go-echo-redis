@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -22,7 +21,7 @@ func init() {
 
 	if err := viper.ReadInConfig(); err != nil {
 		viper.AutomaticEnv()
-		panic(fmt.Errorf("fatal error config file: %s", err))
+		logrus.Info("load config system config variable")
 	}
 }
 func main() {
