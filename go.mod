@@ -5,7 +5,9 @@ go 1.18
 
 require (
 	github.com/go-redis/redis/v7 v7.4.0
+	github.com/joho/godotenv v1.4.0
 	github.com/labstack/echo/v4 v4.2.2
+	github.com/labstack/gommon v0.3.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/viper v1.7.1
 	gorm.io/driver/postgres v1.3.5
@@ -27,7 +29,6 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.4 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
-	github.com/labstack/gommon v0.3.0 // indirect
 	github.com/magiconair/properties v1.8.1 // indirect
 	github.com/mattn/go-colorable v0.1.7 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect

@@ -1,6 +1,8 @@
 package db
 
 import (
+	"github.com/sirupsen/logrus"
+	"go-echo-redis/domain"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"os"
@@ -12,8 +14,9 @@ func ConnectGorm() *gorm.DB {
 
 	db, err := gorm.Open(postgres.Open(connection), &gorm.Config{})
 
+	db.AutoMigrate(domain.Author{}, domain.Post{})
 	if err != nil {
-		panic(err)
+		logrus.Error(err)
 	}
 	return db
 }

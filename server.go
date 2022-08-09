@@ -2,7 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"github.com/joho/godotenv"
+	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/labstack/gommon/log"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"go-echo-redis/db"
@@ -11,11 +14,16 @@ import (
 	"os"
 	"strconv"
 	"time"
-
-	"github.com/labstack/echo/v4"
 )
 
 func main() {
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Infof(".env is not loaded properly")
+	}
+
+	db.ConnectGorm()
+
 	e := echo.New()
 
 	e.GET("/", func(c echo.Context) error {
